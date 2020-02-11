@@ -1,0 +1,84 @@
+.profile-content {
+  .profile-content-tab {
+    padding-top:$spacing-05;
+    padding-right:$spacing-09;
+    padding-left:$spacing-09;
+    padding-bottom: $spacing-09;
+    background-color: $ui-01;
+  }
+  .title{
+    @include carbon--type-style('productive-heading-03');
+    @include carbon--font-weight('semibold');
+  }
+  .caption{
+    @include carbon--type-style('body-short-01');
+    color: $text-02;
+  }
+}
+.bx--tab-content{
+  padding:0;
+  background-color: $ui-01;
+}
+.button-logout {
+  float: right;
+}
+.config-setup {
+  .bx--progress-step {
+    min-width:12rem;
+  }
+  .bx--progress-label{
+    min-width:10.5rem;
+  }
+  .bx--progress-line{
+    min-width:12rem;
+  }
+}
+.setup-content{
+  a {
+    color: $link-01;
+    &:hover{
+      color: $link-01;
+    }
+    &:visited {
+      color: $link-01;
+    }
+  }
+  h4 {
+    padding-top: $spacing-07;
+    @include carbon--type-style('heading-02');
+    @include carbon--font-weight('semibold');
+  }
+  p{
+    @include carbon--type-style('body-short-01');
+    padding-top: $spacing-03;
+  }
+  .setup-content-options{
+    padding-top: $spacing-07;
+  }
+  .setup-input{
+    padding-top: $spacing-03;
+    .bx--text-area__wrapper {
+      width:100%
+    }
+  }
+  .setup-description{
+    max-width:48rem;
+  }
+}
+.step-label{
+  margin-top: $spacing-03;
+}
+.step-spacing{
+  margin-top: $spacing-05;
+  margin-bottom: $spacing-05;
+}
+.button-parent{
+  text-align: right;
+}
+.button-group{
+  display: inline-block;
+  position: relative;
+}
+.setup-in-progress{
+  padding-top:1rem;
+}

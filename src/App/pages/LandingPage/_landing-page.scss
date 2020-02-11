@@ -1,0 +1,123 @@
+@import './mixins.scss';
+@import './overrides.scss';
+.landing-page {
+  @include landing-page-background;
+}
+.landing-page__illo {
+  max-width: 100%;
+}
+.landing-page__banner {
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-09;
+  @include landing-page-background;
+}
+.landing-page__breadcrumb{
+  padding-top: $spacing-05;
+  @include landing-page-background;
+}
+.landing-page__heading {
+  @include carbon--type-style('productive-heading-05');
+}
+.landing-page__gettingstarted {
+  @include carbon--type-style('productive-heading-05');
+  margin-bottom: $spacing-05;
+}
+.landing-page__r2 {
+  padding-bottom: $spacing-09;
+  @include landing-page-background;
+}
+.landing-page__tab-content {
+  padding-top: $layout-05;
+  padding-bottom: $layout-05;
+}
+.landing-page__subheading {
+  @include carbon--type-style('productive-heading-03');
+  @include carbon--font-weight('semibold');
+}
+.landing-page__p {
+  @include carbon--type-style('body-short-01');
+  margin-top: $spacing-06;
+  margin-bottom: $spacing-08;
+  @include carbon--breakpoint-between((320px + 1), md) {
+    max-width: 75%;
+  }
+}
+.landing-page__r3 {
+  padding-top: $spacing-09;
+  padding-bottom: $spacing-09;
+  @include landing-page-background;
+}
+.landing-page__label {
+  @include carbon--type-style('heading-01');
+}
+.landing-page_primary {
+  min-width: $spacing-07 * 5;
+  min-height: $spacing-07 * 5;
+  color: $text-04;
+  background-color: $interactive-01;
+  display: inline-block;
+  &:visited {
+    color: $text-04 !important;
+    background-color: $interactive-01;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $text-04 !important;
+    background-color: $interactive-04;
+    text-decoration: none;
+  }
+  svg {
+    position: absolute;
+    bottom:0;
+    right:0;
+    margin-right:.5rem;
+    margin-bottom:.5rem;
+    fill: white;
+  }
+}
+.landing-page_secondary {
+  min-width: $spacing-07 * 5;
+  min-height: $spacing-07 * 5;
+  color: $text-04;
+  background-color: $inverse-01;
+  display: inline-block;
+  &:visited {
+    color: $text-04 !important;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $text-04 !important;
+    background-color: $ui-02;
+    text-decoration: none;
+  }
+  svg {
+    position: absolute;
+    bottom:0;
+    right:0;
+    margin-right:.5rem;
+    margin-bottom:.5rem;
+    fill: white;
+  }
+}
+.landing-page_button1 {
+  min-width: $spacing-07 * 5;
+  min-height: $spacing-07 * 5;
+  color: $text-04;
+  display: inline-block;
+  &:hover {
+    color: $text-04 !important;
+    text-decoration: none;
+  }
+  &:visited {
+    color: $text-04 !important;
+    text-decoration: none;
+  }
+  svg {
+    position: absolute;
+    bottom:0;
+    right:0;
+    margin-right:.5rem;
+    margin-bottom:.5rem;
+    fill: white;
+  }
+}

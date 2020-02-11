@@ -1,0 +1,28 @@
+.profile-content {
+  .profile-content-tab {
+    padding-top:$spacing-05;
+    padding-right:$spacing-09;
+    padding-left:$spacing-09;
+    padding-bottom: $spacing-09;
+    background-color: $ui-01;
+  }
+  .title{
+    @include carbon--type-style('productive-heading-03');
+    @include carbon--font-weight('semibold');
+  }
+  .caption{
+    @include carbon--type-style('body-short-01');
+    color: $text-02;
+  }
+  td{
+    background-color: $ui-background;
+    min-width:250px;
+  }
+}
+.bx--tab-content{
+  padding:0;
+  background-color: $ui-01;
+}
+.button-logout {
+  float: right;
+}

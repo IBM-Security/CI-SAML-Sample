@@ -1,0 +1,7 @@
+.info-section__heading {
+  @include carbon--type-style('heading-01');
+}
+
+.footer-link{
+  margin-left: $spacing-03;
+}
