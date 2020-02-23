@@ -46,15 +46,15 @@ You will do all the configuration of the application through the UI so there is 
 In the directory where you want the repo clone directory to be created, run this command:
 
 ```
-git clone https://123.com
+git clone https://github.com/ajcase/CI-SAML-Sample
 ```
 
 ## Install packages
 
-Go into the `ci-saml` directory and install required packages:
+Go into the `CI-SAML-Sample` directory and install required packages:
 
 ```js
-cd ci-saml
+cd CI-SAML-Sample
 npm install
 ```
 
