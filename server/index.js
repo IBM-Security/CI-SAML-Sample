@@ -13,10 +13,12 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
 import App from '../src/App/App';
-import ViewProfile from '../src/App/pages/ViewProfile/ViewProfile';
 import '../src/index.scss';
 
-const PORT = 3006;
+const PORT = process.env.PORT || "3006";
+const HOSTNAME = process.env.REACT_APP_HOSTNAME || "http://localhost:3006";
+const ENTITYID = process.env.REACT_APP_ENTITYID || "sample-saml-app";
+
 const app = express();
 //routes
 const apis = require('./routes/apis');
@@ -39,11 +41,11 @@ app.use(cookieParser());
 
 // Create service provider
 var sp_options = {
-  entity_id: "sample-saml-app",
-  assert_endpoint: "http://localhost:3006/assert",
+  entity_id: `${ENTITYID}`,
+  assert_endpoint: `${HOSTNAME}/assert`,
   //use out of the box
-  private_key: fs.readFileSync("./SAMLkey.key").toString(),
-  certificate: fs.readFileSync("./SAMLCertificate.pem").toString(),
+  private_key: fs.readFileSync("../SAMLkey.key").toString(),
+  certificate: fs.readFileSync("../SAMLCertificate.pem").toString(),
   allow_unencrypted_assertion: true,
   nameid_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
   force_authn: true,
@@ -52,10 +54,11 @@ var sp_options = {
 var sp = new saml2.ServiceProvider(sp_options);
 
 // Create identity provider
+var properties = JSON.parse(fs.readFileSync('properties.json'));
 var idp_options = {
-  sso_login_url: process.env.LOGINURL,
-  sso_logout_url: process.env.LOGOUTURL,
-  certificates: process.env.CERTIFICATE
+  sso_login_url: properties.loginurl,
+  sso_logout_url: properties.logouturl,
+  certificates: properties.certificate
 };
 var idp = new saml2.IdentityProvider(idp_options);
 
@@ -67,6 +70,7 @@ app.get("/metadata.xml", function(req, res) {
 
 // Starting point for login
 app.get("/login", function(req, res) {
+  //console.log(properties);
   sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
     if (err != null)
       return res.sendStatus(500);
@@ -114,7 +118,7 @@ app.get("/logout", function(req, res) {
     name_id: req.session.name_id,
     session_index: req.session.session_index
   };
-
+  req.session.destroy();
   sp.create_logout_request_url(idp, options, function(err, logout_url) {
     if (err != null)
       return res.send(500);

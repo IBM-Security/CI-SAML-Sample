@@ -11,14 +11,23 @@ class LandingPage extends Component {
   // Initialize the state
   state = {
     loading: true,
-    session: false
+    session: false,
+    setup: false
   }
 
   componentDidMount() {
+    fetch(`/api/v1.0/config/status`)
+    .then(res => res.json())
+    .then((data) => {
+      (data.status == true) ? 
+        this.setState({setup: true}) : this.setState({setup: false})
+    })
+    .catch(console.log)
+    
     //Use Session data
-    // fetch('http://localhost:3006/api/v1.0/static/session')
+    // fetch(`/api/v1.0/static/session`)
     //Use static data
-    fetch('http://localhost:3006/api/v1.0/session/active')
+    fetch(`/api/v1.0/session/active`)
     .then(res => res.json())
     .then((data) => {
       this.setState({
@@ -58,25 +67,28 @@ class LandingPage extends Component {
               <h1 className="landing-page__gettingstarted">
                 Getting started
               </h1>
-              { this.state.session && !this.state.loading ? (
-                  <>
-                    <ClickableTile className="landing-page_primary" href="/profile">
-                    View profile
-                    <UserIdentification24 aria-label="Profile" />
-                    </ClickableTile>
-                    <ClickableTile className="landing-page_button1" href="/logout">
-                      Logout
-                      <Logout24 aria-label="Logout" />
-                    </ClickableTile>
-                  </>
-                ) : (
-                  <>
-                    <ClickableTile className="landing-page_primary" clicked={false} href="/login">
-                      Login
-                      <Login24 aria-label="Login" />
-                    </ClickableTile>
-                  </>
-                )
+              { this.state.setup ? 
+                  this.state.session && !this.state.loading ? (
+                    <>
+                      <ClickableTile className="landing-page_primary" href="/profile">
+                      View profile
+                      <UserIdentification24 aria-label="Profile" />
+                      </ClickableTile>
+                      <ClickableTile className="landing-page_button1" href="/logout">
+                        Logout
+                        <Logout24 aria-label="Logout" />
+                      </ClickableTile>
+                    </>
+                  ) : (
+                    <>
+                      <ClickableTile className="landing-page_primary" clicked={false} href="/login">
+                        Login
+                        <Login24 aria-label="Login" />
+                      </ClickableTile>
+                    </>
+                  )
+                : 
+                ('')
               }
               <ClickableTile className="landing-page_secondary" clicked={false} href="/setup">
                 Setup

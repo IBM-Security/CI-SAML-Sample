@@ -6,7 +6,7 @@ import SetupHeader from './SetupHeader'
 
 const HeaderProps = {
   title: `Provide your identity provider information`,
-  description: `We don't just truyst anyone. To get started, all you need to provide is your
+  description: `We don't just trust anyone. To get started, all you need to provide is your
   identity provider's login & logout URLs, and the certificate. With this we can
   will know who to send the single-sign on request to.`
 }
@@ -36,7 +36,7 @@ class FirstStep extends Component {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3006/api/v1.0/setup/config", requestOptions)
+    fetch(`/api/v1.0/config/properties`, requestOptions)
       .then(response => response.text())
       .then(result => {
         var precheck = JSON.parse(result)
@@ -45,11 +45,11 @@ class FirstStep extends Component {
           this.setState({
             loading: false,
             success: true,
-            loginurl: precheck.config.login,
-            logouturl: precheck.config.logout,
-            certificate: precheck.config.certificate
+            loginurl: precheck.message.loginurl,
+            logouturl: precheck.message.logouturl,
+            certificate: precheck.message.certificate
           })
-          this.preloadCheck(precheck.config.login, precheck.config.logout, precheck.config.certificate)
+          this.preloadCheck(precheck.message.loginurl, precheck.message.logouturl, precheck.message.certificate)
         }
       })
       .catch(error => console.log('error', error));

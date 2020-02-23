@@ -1,5 +1,5 @@
 {
-  "name": "ci-saml-sample",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,7 +13,7 @@
     "apollo-boost": "^0.4.7",
     "babel": "^6.23.0",
     "body-parser": "^1.19.0",
-    "carbon-components": "^10.9.2",
+    "carbon-components": "^10.10.0",
     "carbon-components-react": "^7.9.2",
     "carbon-themes": "^1.7.0",
     "cookie-parser": "^1.4.4",
@@ -40,7 +40,14 @@
   },
   "scripts": {
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
-    "start": "nodemon ./server-build/index.js"
+    "dev:start": "nodemon ./server-build/index.js",
+    "dev": "npm-run-all --parallel build dev:*",
+    "prod": "npm-run-all --parallel react dev:*",
+    "start": "nodemon ./server-build/index.js",
+    "react": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -31,8 +31,8 @@ class ThirdStep extends Component {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("login", this.state.loginurl);
-    urlencoded.append("logout", this.state.logouturl);
+    urlencoded.append("loginurl", this.state.loginurl);
+    urlencoded.append("logouturl", this.state.logouturl);
     urlencoded.append("certificate", this.state.certificate);
 
     var requestOptions = {
@@ -42,7 +42,7 @@ class ThirdStep extends Component {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:3006/api/v1.0/setup/create", requestOptions)
+    fetch(`/api/v1.0/config/properties`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .then((data) => {

@@ -16,9 +16,9 @@ class Setup extends Component {
     this.state = {
         showResults: false,
         progressStep: 0,
-        loginurl: null,
-        logouturl: null,
-        certificate: null,
+        loginurl: '',
+        logouturl: '',
+        certificate: '',
         preload: false
       };
 
@@ -74,10 +74,10 @@ class Setup extends Component {
           <div className="bx--col-lg-4">
             { this.state.progressStep == 0 ? (
               <div className="button-parent">
-                {(this.state.preload || (this.state.loginurl != null && this.state.logouturl != null && this.state.certificate != null)) ? (
+                {(this.state.loginurl != '' && this.state.logouturl != '' && this.state.certificate != '') ? (
                   <Button kind="primary" className="button-group" onClick={this.increaseStep}>Next</Button>
                 ) : (
-                  <Button kind="primary" disabled={true} className="button-group" onClick={this.increaseStep}>Next</Button>
+                  <Button kind="primary" disabled={true} className="button-group">Next</Button>
                 )}
               </div>
             ) : [
@@ -87,7 +87,9 @@ class Setup extends Component {
                   <Button kind="primary" className="button-group" onClick={this.increaseStep}>Save</Button>
                 </div>
                :
-                null
+               <div className="button-parent">
+                  <Button kind="secondary" className="button-group" onClick={this.decreaseStep}>Back</Button>
+                </div>
               )
             ]
             }

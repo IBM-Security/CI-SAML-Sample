@@ -2,15 +2,61 @@ var express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 var router = express.Router();
+const fs = require('fs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// An api endpoint that returns a short list of items
-router.get('/getList', function(req, res, next) {
-  var list = ["item1", "item2", "item3"];
-  res.json(list);
-  console.log('Sent list of items');
-});
+
+router.get('/v1.0/config/status', function(req, res, next){
+  fs.readFile('properties.json', function(err, data) {
+    var properties = JSON.parse(data);
+    res.json({
+      'status': (properties.loginurl || properties.logouturl || properties.certificate) ? true : false
+    })
+  });
+})
+router.get('/v1.0/config/properties', function(req, res, next){
+  fs.readFile('properties.json', function(err, data) {
+    res.json({
+      'code': '201',
+      'message': JSON.parse(data),
+      'error': err == null ? "false" : err
+    })
+    console.log(JSON.parse(data))
+  });
+})
+
+router.post('/v1.0/config/properties', function(req, res, next){
+  const settings = req.body;
+  console.log(settings)
+  if(!settings.loginurl || !settings.logouturl || !settings.certificate)
+    {
+      var attrs = ((!settings.logouturl) ? "logout missing" : "logout received") + ', ' + ((!settings.loginurl) ? "login missing" : "login received") + ', ' + ((!settings.certificate) ? "certifcate missing" : "certificate received");
+      res.json({
+        'code': '402',
+        'message': `You didn't send all the required attributes. Attributes: ${attrs}`
+      })
+    }
+  else{
+    var setProperties = {
+      "loginurl": settings.loginurl,
+      "logouturl": settings.logouturl,
+      "certificate": settings.certificate
+    }
+    let data = JSON.stringify(setProperties, null, 2);
+    res.json({
+      'code': '201',
+      'message': 'Attempt to modify file made successfully. Call the GET endpoint to verify settings have been changed.',
+      'nextCall' : '/api/v1.0/config/properties',
+      'nextMethod': "GET"
+    })
+    console.log('Successfully modified the configuration');
+    fs.writeFileSync('properties.json', data, (err) => {
+      if (err) throw err;
+      console.log('Notification inside write');
+    });
+  }
+})
 
 router.get('/v1.0/session/attributes', function(req, res, next){
   if(typeof req.session.user !== 'undefined'){

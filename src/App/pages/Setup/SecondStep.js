@@ -3,7 +3,8 @@ import {
   CodeSnippet, Link
 } from 'carbon-components-react';
 import SetupHeader from './SetupHeader'
-
+const currentHost = process.env.REACT_APP_HOSTNAME;
+const entityId = process.env.REACT_APP_ENTITYID;
 const HeaderProps = {
   title: `You have to trust us too.`,
   description: `Copy the URLs below or download the metadata and import it to your identity provider. If you don’t complete this step, you’re going to have a bad time.`
@@ -14,7 +15,7 @@ class SecondStep extends Component {
   // execCommand Copy only allows copying from visible input fields.
   // So we take the value in the <pre> tag, put it in a textArea, then copy from there, then remove textArea.
   copyEntity = () => {
-  	let copiedText: string = '';
+  	let copiedText = '';
   	var codeSnippetElement = document.querySelectorAll('#entity > div > code > pre');
   	if (codeSnippetElement) {
   		copiedText = codeSnippetElement[0].innerHTML;
@@ -27,7 +28,7 @@ class SecondStep extends Component {
   	textArea.remove();
   };
   copyLogin = () => {
-  	let copiedText: string = '';
+  	let copiedText = '';
   	var codeSnippetElement = document.querySelectorAll('#copylogin > div > code > pre');
   	if (codeSnippetElement) {
   		copiedText = codeSnippetElement[0].innerHTML;
@@ -40,7 +41,7 @@ class SecondStep extends Component {
   	textArea.remove();
   };
   copyAcs = () => {
-  	let copiedText: string = '';
+  	let copiedText = '';
   	var codeSnippetElement = document.querySelectorAll('#acs > div > code > pre');
   	if (codeSnippetElement) {
   		copiedText = codeSnippetElement[0].innerHTML;
@@ -70,7 +71,7 @@ class SecondStep extends Component {
               onClick={this.copyEntity}
               id="entity"
             >
-              sample-saml-app
+              {entityId || "sample-saml-app"}
             </CodeSnippet>
             <p className="step-label">Assertion Consumer Service URL (ACS)</p>
             <CodeSnippet
@@ -81,7 +82,7 @@ class SecondStep extends Component {
               onClick={this.copyAcs}
               id="acs"
             >
-              http://localhost:3006/assert
+              {currentHost + '/assert'}
             </CodeSnippet>
             <p className="step-label">Single Sign-On (SSO) URL</p>
             <CodeSnippet
@@ -92,7 +93,7 @@ class SecondStep extends Component {
               onClick={this.copyLogin}
               id="copylogin"
             >
-              http://localhost:3006/login
+              {currentHost + '/login'}
             </CodeSnippet>
           </div>
           <div className="step-spacing">

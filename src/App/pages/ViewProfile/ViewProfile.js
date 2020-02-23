@@ -111,10 +111,11 @@ class ViewProfile extends Component {
     groupCurrentPageSize: 10
   }
   componentDidMount() {
+    
     //Use Session data
-    fetch('http://localhost:3006/api/v1.0/session/attributes')
+    fetch(`/api/v1.0/session/attributes`)
     //Use static data
-    // fetch('http://localhost:3006/api/v1.0/static/attributes')
+    // fetch(`/api/v1.0/static/attributes`)
     .then(res => res.json())
     .then((data) => {
       this.setState({
@@ -177,7 +178,7 @@ class ViewProfile extends Component {
             }
           </div>
           <div className="bx--col-lg-4">
-            <Button kind="secondary" className="button-logout">Logout</Button>
+            <Button kind="secondary" className="button-logout" onClick={() => window.location.replace('/logout')}>Logout</Button>
           </div>
         </div>
         <div className="bx--row profile-content">
@@ -277,7 +278,7 @@ class ViewProfile extends Component {
                 <div className="profile-content-tab">
                   <div className="bx--data-table-header">
                     <h4 className="bx--data-table-header__title">SAML assertion</h4>
-                    <p class="bx--data-table-header__description">This is a caption</p>
+                    <p class="bx--data-table-header__description">View the raw assertion that was received from your Identity Provider.</p>
                   </div>
                   { this.state.loading ? (
                       <div
@@ -293,10 +294,7 @@ class ViewProfile extends Component {
                       </div>
                     ) : (
                       <div
-                        className=""
-                        style={{
-                          width: '100%'
-                        }}
+                        className="snippetBackground"
                       >
                       <CodeSnippet type="multi">
                         {format(this.state.user.assertion.result)}

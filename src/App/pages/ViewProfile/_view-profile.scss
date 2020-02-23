@@ -5,6 +5,12 @@
     padding-left:$spacing-09;
     padding-bottom: $spacing-09;
     background-color: $ui-01;
+    .bx--snippet-container {
+      position: unset !important;
+    }
+    .bx--snippet--multi{
+      background: unset;
+    }
   }
   .title{
     @include carbon--type-style('productive-heading-03');
@@ -26,3 +32,8 @@
 .button-logout {
   float: right;
 }
+.snippetBackground{
+  width: 100%;
+  background-color: #292929 !important;
+}
+
