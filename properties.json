@@ -1,5 +1,5 @@
 {
-  "loginurl": "https://casesecurity.ice.ibmcloud.com/saml/sps/saml20ip/saml20/login",
-  "logouturl": "https://casesecurity.ice.ibmcloud.com/idaas/mtfim/sps/idaas/logout",
-  "certificate": "-----BEGIN CERTIFICATE-----\nMIIDOjCCAiKgAwIBAgIEfA/06DANBgkqhkiG9w0BAQsFADBfMQkwBwYDVQQGEwAx\nCTAHBgNVBAgTADEJMAcGA1UEBxMAMQkwBwYDVQQKEwAxCTAHBgNVBAsTADEmMCQG\nA1UEAxMdY2FzZXNlY3VyaXR5LmljZS5pYm1jbG91ZC5jb20wHhcNMTgwNzA3MTc1\nMTU5WhcNMjgwNzA0MTc1MTU5WjBfMQkwBwYDVQQGEwAxCTAHBgNVBAgTADEJMAcG\nA1UEBxMAMQkwBwYDVQQKEwAxCTAHBgNVBAsTADEmMCQGA1UEAxMdY2FzZXNlY3Vy\naXR5LmljZS5pYm1jbG91ZC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\nAoIBAQDC2K9xO1IAzk/Jm/Kj9sIvxPDQi0JzHhwBa/Scn71sey8BQId9URAIy6ps\nRKFe6kATznWiBMsDq5dMgimxUUYq5g6/73KYjp45AxQOUe1bd1OgS9YH26bCedpz\nZMZ8c0xVXmyDkpn+2I/KHhqQ5uUugTmZA1po6yQEPauQvgP8zCUOQe2x3enGT6us\nHr8pRa0GMnwvgQpoTg8G8xISeVxLxSOG7YhzDDs80Sf7XTh2Ow+ZYJ9eHnQk/5PC\n7+Qn5bpqRnsy2eGhfq0lqED/k3mJnbX1GmrBD+yKgrNMZCZE2JUXRv15bqoebnAg\ns2lOXUYpAMVfK9d5GtpG9BxTLvSLAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAEzw\nV120BI3QC4LBUMtrEXpTjqyBF/XwYk4o0hdJpC66JG98slaIa0CsJaCl0aNlvwUz\ntA8FlbiZX2V/cqhN+N+faXq5+LuTzE6ngwheMt8XiGy93Soa2AyrfZQb1nfN27bL\nl9/5krCG6AuhJVddlElvFmE9yMYPGjMNlpdDwnzpktrhn798ZTv4vGXufg344O8h\nY+NhoW6kefGTLvko4LaRLHlxJJQSkYfF4yAC02xsy33m5lX1hPt7StRAhI3WA7ow\nKXM4ZdeJLQBRdiC33OLDFO2lYH44LKfZcqg9tNVz8ByLB6coY6SdIFihtkdAGUyX\n4qigEuvcHF+HX7jxWDM=\n-----END CERTIFICATE-----"
+  "loginurl": "",
+  "logouturl": "",
+  "certificate": ""
 }
