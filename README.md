@@ -21,9 +21,11 @@
 
 # Introduction
 
-## Developer Utilities / Sample SAML application
+## Sample SAML application
 
-This application can be used for development or demonstration purposes with any SAML identity provider. When a login attempt is successful, you will be able to view the name identitifier, all attributes, and groups that were received. Additionally, we provide the raw SAML assertion for more advanced debugging. 
+A lot of times, public SAML applications are hard to come by. Free options are usually are harder to come by. This application can be used for development or demonstration purposes with any SAML identity provider to be used to test new access policies, attribute mappings, and SSO configurations. 
+
+When a login attempt is successful, you will be able to view the name identitifier, all attributes, and groups that were received. Additionally, we provide the raw SAML assertion for more advanced debugging. 
 
 ![main.png](main.png)
 
