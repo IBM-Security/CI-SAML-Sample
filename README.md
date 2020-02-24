@@ -60,6 +60,8 @@ cd CI-SAML-Sample
 npm install
 ```
 
+**Note:** If you are using Catalina, you may encounter errors with the error message "No XCode or CLT version detected". Following this guide helps resolve that issue: https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d
+
 ### Additional setup parameters (optional)
 
 The .env file is already created for you. However, in case you want to modify the paramters for production hosting then you can modify the URL, port, and entity ID for the SAML service provider configuration.
@@ -115,6 +117,7 @@ On the Sign on tab:
     - **Signing certificate**
         
         ex. 
+            ```
             -----BEGIN CERTIFICATE-----
             MIIDOjCCAiKgAwIBAgIEfA/06DANBgkqhkiG9w0BAQsFADBfMQkwBwYDVQQGEwAx
             CTAHBgNVBAgTADEJMAcGA1UEBxMAMQkwBwYDVQQKEwAxCTAHBgNVBAsTADEmMCQG
@@ -135,6 +138,7 @@ On the Sign on tab:
             KXM4ZdeJLQBRdiC33OLDFO2lYH44LKfZcqg9tNVz8ByLB6coY6SdIFihtkdAGUyX
             4qigEuvcHF+HX7jxWDM=
             -----END CERTIFICATE-----
+            ```
 3. Provide these parameters to the input boxes provided in the first step. Click **Next** when all paramters have been entered.
 ![Setup Identity Provider](setup-idp.png)
 
