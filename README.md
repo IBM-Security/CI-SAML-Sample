@@ -166,7 +166,7 @@ or
 
 - Allow unencrypted session: `true`
 - Name ID Format: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`
-- Force Authn: `true`
+- Force Authn: `false`
 - Authentication Method: `urn:oasis:names:tc:SAML:1.0:am:password`
 
 **Example IBM Cloud Identity Configuration**
