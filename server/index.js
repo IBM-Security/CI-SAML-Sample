@@ -44,11 +44,11 @@ var sp_options = {
   entity_id: `${ENTITYID}`,
   assert_endpoint: `${HOSTNAME}/assert`,
   //use out of the box
-  private_key: fs.readFileSync("../SAMLkey.key").toString(),
-  certificate: fs.readFileSync("../SAMLCertificate.pem").toString(),
+  private_key: fs.readFileSync("./SAMLkey.key").toString(),
+  certificate: fs.readFileSync("./SAMLCertificate.pem").toString(),
   allow_unencrypted_assertion: true,
   nameid_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
-  force_authn: true,
+  force_authn: false,
   auth_context: { comparison: "exact", class_refs: ["urn:oasis:names:tc:SAML:1.0:am:password"] }
 };
 var sp = new saml2.ServiceProvider(sp_options);
