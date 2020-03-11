@@ -179,7 +179,7 @@ or
 - Force Authn: `false`
 - Authentication Method: `urn:oasis:names:tc:SAML:1.0:am:password`
 
-**Example IBM Cloud Identity Configuration**
+**Ex. IBM Cloud Identity Configuration**
 ![Example CI Config](setup-ci.png)
 
 ### Login now
