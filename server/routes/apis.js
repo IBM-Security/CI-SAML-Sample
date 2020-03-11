@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 var router = express.Router();
 const fs = require('fs');
+const setup = process.env.REACT_APP_SHOWSETUP;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,38 +26,39 @@ router.get('/v1.0/config/properties', function(req, res, next){
     console.log(JSON.parse(data))
   });
 })
-
-router.post('/v1.0/config/properties', function(req, res, next){
-  const settings = req.body;
-  console.log(settings)
-  if(!settings.loginurl || !settings.logouturl || !settings.certificate)
-    {
-      var attrs = ((!settings.logouturl) ? "logout missing" : "logout received") + ', ' + ((!settings.loginurl) ? "login missing" : "login received") + ', ' + ((!settings.certificate) ? "certifcate missing" : "certificate received");
+if(setup){
+  router.post('/v1.0/config/properties', function(req, res, next){
+    const settings = req.body;
+    console.log(settings)
+    if(!settings.loginurl || !settings.logouturl || !settings.certificate)
+      {
+        var attrs = ((!settings.logouturl) ? "logout missing" : "logout received") + ', ' + ((!settings.loginurl) ? "login missing" : "login received") + ', ' + ((!settings.certificate) ? "certifcate missing" : "certificate received");
+        res.json({
+          'code': '402',
+          'message': `You didn't send all the required attributes. Attributes: ${attrs}`
+        })
+      }
+    else{
+      var setProperties = {
+        "loginurl": settings.loginurl,
+        "logouturl": settings.logouturl,
+        "certificate": settings.certificate
+      }
+      let data = JSON.stringify(setProperties, null, 2);
       res.json({
-        'code': '402',
-        'message': `You didn't send all the required attributes. Attributes: ${attrs}`
+        'code': '201',
+        'message': 'Attempt to modify file made successfully. Call the GET endpoint to verify settings have been changed.',
+        'nextCall' : '/api/v1.0/config/properties',
+        'nextMethod': "GET"
       })
+      console.log('Successfully modified the configuration');
+      fs.writeFileSync('properties.json', data, (err) => {
+        if (err) throw err;
+        console.log('Notification inside write');
+      });
     }
-  else{
-    var setProperties = {
-      "loginurl": settings.loginurl,
-      "logouturl": settings.logouturl,
-      "certificate": settings.certificate
-    }
-    let data = JSON.stringify(setProperties, null, 2);
-    res.json({
-      'code': '201',
-      'message': 'Attempt to modify file made successfully. Call the GET endpoint to verify settings have been changed.',
-      'nextCall' : '/api/v1.0/config/properties',
-      'nextMethod': "GET"
-    })
-    console.log('Successfully modified the configuration');
-    fs.writeFileSync('properties.json', data, (err) => {
-      if (err) throw err;
-      console.log('Notification inside write');
-    });
-  }
-})
+  })
+}
 
 router.get('/v1.0/session/attributes', function(req, res, next){
   if(typeof req.session.user !== 'undefined'){
@@ -144,34 +146,36 @@ router.get('/v1.0/session/assertion', function(req, res, next){
     res.json(error)
   }
 })
-router.post('/v1.0/setup/create', function(req, res, next){
-  //Requires Content-type: application/x-www-form-urlencoded
-  //Expects login, logout, and certificate as variables
+if(setup){
+  router.post('/v1.0/setup/create', function(req, res, next){
+    //Requires Content-type: application/x-www-form-urlencoded
+    //Expects login, logout, and certificate as variables
 
-  var data = req.body;
-  if(!data.login || !data.logout || !data.certificate)
-    {
-      var attrs = ((!data.logout) ? "logout missing" : "logout received") + ', ' + ((!data.login) ? "login missing" : "login received") + ', ' + ((!data.certificate) ? "certifcate missing" : "certificate received");
+    var data = req.body;
+    if(!data.login || !data.logout || !data.certificate)
+      {
+        var attrs = ((!data.logout) ? "logout missing" : "logout received") + ', ' + ((!data.login) ? "login missing" : "login received") + ', ' + ((!data.certificate) ? "certifcate missing" : "certificate received");
+        res.json({
+          'code': '402',
+          'message': `You didn't send all the required attributes. Attributes: ${attrs}`
+        })
+      }
+    else{
+      if (data.login) process.env.LOGINURL = data.login;
+      if (data.logout) process.env.LOGOUTURL = data.logout;
+      if (data.certificate) process.env.CERTIFICATE = data.certificate;
       res.json({
-        'code': '402',
-        'message': `You didn't send all the required attributes. Attributes: ${attrs}`
+        'code': '201',
+        'message': 'SAML is now configured for this environment',
+        'config': {
+          'login': data.login,
+          'logout': data.logout,
+          'certificate': data.certificate
+        }
       })
     }
-  else{
-    if (data.login) process.env.LOGINURL = data.login;
-    if (data.logout) process.env.LOGOUTURL = data.logout;
-    if (data.certificate) process.env.CERTIFICATE = data.certificate;
-    res.json({
-      'code': '201',
-      'message': 'SAML is now configured for this environment',
-      'config': {
-        'login': data.login,
-        'logout': data.logout,
-        'certificate': data.certificate
-      }
-    })
-  }
-})
+  })  
+}
 router.post('/v1.0/setup/static', function(req, res, next){
     res.json({
       'code': '201',

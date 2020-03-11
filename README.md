@@ -73,8 +73,12 @@ SASS_PATH="node_modules"
 SKIP_PREFLIGHT_CHECK=true
 REACT_APP_HOSTNAME=http://localhost:3006
 REACT_APP_ENTITYID=sample-saml-app
+REACT_APP_SHOWSETUP=true
+REACT_APP_HTTPS=false
 PORT=3006
 ```
+
+If you want to support SSL then set `REACT_APP_HTTPS=true`. If you want to disable the setup after first use, then set `REACT_APP_SHOWSETUP=false` so others cannot modify the SSO configuration.
 
 Save the file and close the editor.
 

@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
+var https = require('https')
+
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -18,6 +20,7 @@ import '../src/index.scss';
 const PORT = process.env.PORT || "3006";
 const HOSTNAME = process.env.REACT_APP_HOSTNAME || "http://localhost:3006";
 const ENTITYID = process.env.REACT_APP_ENTITYID || "sample-saml-app";
+const HTTPS = process.env.REACT_APP_HTTPS || false;
 
 const app = express();
 //routes
@@ -48,7 +51,7 @@ var sp_options = {
   certificate: fs.readFileSync("./SAMLCertificate.pem").toString(),
   allow_unencrypted_assertion: true,
   nameid_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
-  force_authn: false,
+  force_authn: true,
   auth_context: { comparison: "exact", class_refs: ["urn:oasis:names:tc:SAML:1.0:am:password"] }
 };
 var sp = new saml2.ServiceProvider(sp_options);
@@ -151,6 +154,18 @@ app.get('/*', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`😎 Server is listening on port ${PORT}`);
-});
+if(HTTPS){
+  https.createServer({
+    key: fs.readFileSync('./server.key'),
+    cert: fs.readFileSync('./server.cert')
+  }, app)
+  .listen(PORT, function () {
+    console.log(`Example app listening on port ${PORT}! Go to https://localhost:${PORT}/`)
+  })
+}
+else{
+  app.listen(PORT, () => {
+    console.log(`😎 Server is listening on port ${PORT}! Go to http://localhost:${PORT}/`);
+  });
+}
+
