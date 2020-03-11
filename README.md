@@ -3,7 +3,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
-    - [Developer Utilities / Sample SAML application](#developer-utilities--sample-saml-application)
+    - [Sample SAML application](#sample-saml-application)
     - [Getting started](#getting-started)
         - [Pre-requisites](#pre-requisites)
 - [Application setup](#application-setup)
@@ -36,8 +36,8 @@ You will do all the configuration of the application through the UI so there is 
 ### Pre-requisites
 
 1. You will need an IBM Security Cloud Identity tenant or another Identity Provider that supports SAML. 
-2. To run locally, you will need to install [NodeJS](https://nodejs.org/en/download/) and [Yarn](https://www.npmjs.com/package/yarn). 
-    - Install yarn by running `npm i yarn` in your terminal window. 
+2. To run locally, you will need to install [NodeJS](https://nodejs.org/en/download/).
+    - Optionally, install yarn by running `npm i yarn` in your terminal window. 
     - **Note:** You will only need Yarn in case you want to modify the application, otherwise, node is all that is necessary.
 3. It's import to clone this repo to keep it in sync, otherwise you can simply download the zip file from GitHub.
 
@@ -113,7 +113,7 @@ On the Sign on tab:
         ex. `https://tenant.ice.ibmcloud.com/saml/sps/saml20ip/saml20/login`
     - **Logout URL**
         
-        ex. `https://casesecurity.ice.ibmcloud.com/idaas/mtfim/sps/idaas/logout`
+        ex. `https://tenant.ice.ibmcloud.com/idaas/mtfim/sps/idaas/logout`
     - **Signing certificate**
         
         ex. 
