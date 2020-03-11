@@ -82,6 +82,12 @@ Save the file and close the editor.
 
 Start the application by running the command: 
 
+If using NPM:
+```js
+npm start
+```
+
+If using yarn:
 ```js
 yarn start
 ```
