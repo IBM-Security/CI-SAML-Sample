@@ -11,6 +11,25 @@ const HeaderProps = {
 }
 
 class SecondStep extends Component {
+
+  // Initialize the state
+  state = {
+    entityid: "",
+    acs: "",
+    ssotrigger: ""
+  }
+
+  componentDidMount() {
+    fetch(`/api/v1.0/config/saml`)
+    .then(res => res.json())
+    .then((data) => {
+      (data.entityid) && this.setState({entityid: data.entityid});
+      (data.acs) && this.setState({acs: data.acs});
+      (data.ssotrigger) && this.setState({ssotrigger: data.ssotrigger});
+    })
+    .catch(console.log)
+  }
+
   // IE and Edge don't support ClipBoard API
   // execCommand Copy only allows copying from visible input fields.
   // So we take the value in the <pre> tag, put it in a textArea, then copy from there, then remove textArea.
@@ -53,6 +72,7 @@ class SecondStep extends Component {
   	document.execCommand('Copy');
   	textArea.remove();
   };
+
   render() {
     return (
       <div className="bx--row setup-content">
@@ -62,7 +82,7 @@ class SecondStep extends Component {
         />
         <div className="bx--col-lg-6 bx--col-md-6">
           <div className="setup-content-options">
-            <p className="step-label">Entity ID</p>
+            <p className="step-label">Provider ID</p>
             <CodeSnippet
               ariaLabel="Container label"
               copyButtonDescription="copyable code snippet"
@@ -71,7 +91,7 @@ class SecondStep extends Component {
               onClick={this.copyEntity}
               id="entity"
             >
-              {entityId || "sample-saml-app"}
+              {this.state.entityid}
             </CodeSnippet>
             <p className="step-label">Assertion Consumer Service URL (ACS)</p>
             <CodeSnippet
@@ -82,7 +102,7 @@ class SecondStep extends Component {
               onClick={this.copyAcs}
               id="acs"
             >
-              {currentHost + '/assert'}
+              {this.state.acs}
             </CodeSnippet>
             <p className="step-label">Single Sign-On (SSO) URL</p>
             <CodeSnippet
@@ -93,7 +113,7 @@ class SecondStep extends Component {
               onClick={this.copyLogin}
               id="copylogin"
             >
-              {currentHost + '/login'}
+              {this.state.ssotrigger}
             </CodeSnippet>
           </div>
           <div className="step-spacing">
