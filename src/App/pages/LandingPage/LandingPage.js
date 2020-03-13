@@ -12,18 +12,21 @@ class LandingPage extends Component {
   state = {
     loading: true,
     session: false,
-    setup: false
+    setup: false,
+    setupAllowed: true
   }
 
   componentDidMount() {
     fetch(`/api/v1.0/config/status`)
     .then(res => res.json())
     .then((data) => {
-      (data.status == true) ? 
-        this.setState({setup: true}) : this.setState({setup: false})
+      (data.status == true) ?
+        this.setState({setup: true}) : this.setState({setup: false});
+      (data.allowed == true) ?
+        this.setState({setupAllowed: true}) : this.setState({setupAllowed: false});
     })
     .catch(console.log)
-    
+
     //Use Session data
     // fetch(`/api/v1.0/static/session`)
     //Use static data
@@ -38,9 +41,11 @@ class LandingPage extends Component {
        })
     })
     .catch(console.log)
+
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="bx--grid landing-page">
         <div className="bx--row landing-page__banner">
@@ -67,7 +72,7 @@ class LandingPage extends Component {
               <h1 className="landing-page__gettingstarted">
                 Getting started
               </h1>
-              { this.state.setup ? 
+              { this.state.setup ?
                   this.state.session && !this.state.loading ? (
                     <>
                       <ClickableTile className="landing-page_primary" href="/profile">
@@ -87,13 +92,16 @@ class LandingPage extends Component {
                       </ClickableTile>
                     </>
                   )
-                : 
+                :
                 ('')
               }
+              { this.state.setupAllowed ? (
               <ClickableTile className="landing-page_secondary" clicked={false} href="/setup">
                 Setup
                 <Settings24 aria-label="Settings" />
               </ClickableTile>
+            ) : ('')
+          }
             </div>
         </div>
         <Footer text="Need help?" link="/" linktext="Visit the knowledge center" className="landing-page__r3" />
