@@ -12,7 +12,8 @@ router.get('/v1.0/config/status', function(req, res, next){
   fs.readFile('properties.json', function(err, data) {
     var properties = JSON.parse(data);
     res.json({
-      'status': (properties.loginurl || properties.logouturl || properties.certificate) ? true : false
+      'status': (properties.loginurl || properties.logouturl || properties.certificate) ? true : false,
+      'allowed': (setup != "false") ? true : false
     })
   });
 })
@@ -26,7 +27,7 @@ router.get('/v1.0/config/properties', function(req, res, next){
     console.log(JSON.parse(data))
   });
 })
-if(setup){
+if(setup != "false"){
   router.post('/v1.0/config/properties', function(req, res, next){
     const settings = req.body;
     console.log(settings)
@@ -146,7 +147,7 @@ router.get('/v1.0/session/assertion', function(req, res, next){
     res.json(error)
   }
 })
-if(setup){
+if(setup != "false"){
   router.post('/v1.0/setup/create', function(req, res, next){
     //Requires Content-type: application/x-www-form-urlencoded
     //Expects login, logout, and certificate as variables
@@ -174,7 +175,7 @@ if(setup){
         }
       })
     }
-  })  
+  })
 }
 router.post('/v1.0/setup/static', function(req, res, next){
     res.json({
