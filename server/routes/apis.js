@@ -188,6 +188,7 @@ router.post('/v1.0/setup/static', function(req, res, next){
       }
     })
 })
+
 router.get('/v1.0/setup/config', function(req, res, next){
     res.json({
       'code': '201',
@@ -197,6 +198,14 @@ router.get('/v1.0/setup/config', function(req, res, next){
         'logout': process.env.LOGOUTURL,
         'certificate': process.env.CERTIFICATE
       }
+    })
+})
+
+router.get('/v1.0/config/saml', function(req, res, next){
+    res.json({
+      'entityid': process.env.REACT_APP_ENTITYID,
+      'acs': process.env.REACT_APP_HOSTNAME + '/assert',
+      'ssotrigger': process.env.REACT_APP_HOSTNAME + '/login'
     })
 })
 
