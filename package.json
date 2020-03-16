@@ -17,7 +17,6 @@
     "carbon-components": "^10.10.0",
     "carbon-components-react": "^7.9.2",
     "carbon-themes": "^1.7.0",
-    "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -37,6 +36,7 @@
     "saml2-js": "^2.0.5",
     "sass-loader": "^8.0.2",
     "universal-cookie": "^4.0.3",
+    "universal-cookie-express": "^4.0.3",
     "webpack": "^4.41.5",
     "xml-formatter": "^1.2.0"
   },
