@@ -42,6 +42,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//Get IdP
+function getidp(req) {
+  let properties=null;
+  let uuid = req.cookies['sample-saml-cookie'];
+  if (uuid) {
+     properties = JSON.parse(fs.readFileSync('properties-' + uuid + '.json'));
+  } else {
+    properties = JSON.parse(fs.readFileSync('properties.json'));
+  }
+  let idp_options = {
+    sso_login_url: properties.loginurl,
+    sso_logout_url: properties.logouturl,
+    certificates: properties.certificate
+  };
+  let idp = new saml2.IdentityProvider(idp_options);
+  return idp;
+}
+
 // Create service provider
 var sp_options = {
   entity_id: `${ENTITYID}`,
@@ -56,15 +74,6 @@ var sp_options = {
 };
 var sp = new saml2.ServiceProvider(sp_options);
 
-// Create identity provider
-var properties = JSON.parse(fs.readFileSync('properties.json'));
-var idp_options = {
-  sso_login_url: properties.loginurl,
-  sso_logout_url: properties.logouturl,
-  certificates: properties.certificate
-};
-var idp = new saml2.IdentityProvider(idp_options);
-
 // Endpoint to retrieve metadata
 app.get("/metadata.xml", function(req, res) {
   res.type('application/xml');
@@ -74,7 +83,7 @@ app.get("/metadata.xml", function(req, res) {
 // Starting point for login
 app.get("/login", function(req, res) {
   //console.log(properties);
-  sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
+  sp.create_login_request_url(getidp(req), {}, function(err, login_url, request_id) {
     if (err != null)
       return res.sendStatus(500);
     res.redirect(login_url);
@@ -86,7 +95,7 @@ app.post("/assert", function(req, res) {
   const sesh = req.session;
   const rawBody = req.body;
   var options = {request_body: req.body};
-  sp.post_assert(idp, options, function(err, saml_response) {
+  sp.post_assert(getidp(req), options, function(err, saml_response) {
     console.log("Error", err);
     console.log("Response", saml_response);
     if (err != null)
@@ -122,7 +131,7 @@ app.get("/logout", function(req, res) {
     session_index: req.session.session_index
   };
   req.session.destroy();
-  sp.create_logout_request_url(idp, options, function(err, logout_url) {
+  sp.create_logout_request_url(getidp(req), options, function(err, logout_url) {
     if (err != null)
       return res.send(500);
     res.redirect(logout_url);
@@ -168,4 +177,3 @@ else{
     console.log(`😎 Server is listening on port ${PORT}! Go to http://localhost:${PORT}/`);
   });
 }
-

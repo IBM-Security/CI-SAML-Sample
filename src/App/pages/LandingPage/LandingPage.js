@@ -6,6 +6,10 @@ import {
  } from 'carbon-components-react';
 import Footer from '../InfoFooter/Footer';
 import { Settings24, Login24, UserIdentification24, Logout24 } from '@carbon/icons-react';
+import * as QueryString from "query-string";
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class LandingPage extends Component {
   // Initialize the state
@@ -17,7 +21,26 @@ class LandingPage extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/v1.0/config/status`)
+
+    const params = QueryString.parse(this.props.location.search);
+
+    if (params.uuid == "reset" ) {
+      console.log("resetting cookie");
+      cookies.remove('sample-saml-cookie', {path: '/', sameSite: 'none'});
+    } else {
+      if (typeof params.uuid !== 'undefined') {
+        cookies.set('sample-saml-cookie', params.uuid, {
+          path: '/',
+          maxAge: '2147483647',
+          sameSite: 'none'
+        });
+      }
+    }
+    var uuid = cookies.get('sample-saml-cookie');
+    var uuidQueryString = (typeof uuid !== 'undefined' ? `?uuid=${uuid}` : '' );
+    var uuidString = (typeof uuid !== 'undefined' ? `${uuid}` : 'default' );
+
+    fetch(`/api/v1.0/config/status${uuidQueryString}`)
     .then(res => res.json())
     .then((data) => {
       (data.status == true) ?
@@ -45,6 +68,9 @@ class LandingPage extends Component {
   }
 
   render() {
+    var uuid = cookies.get('sample-saml-cookie');
+    var uuidString = (typeof uuid !== 'undefined' ? `${uuid}` : 'default' );
+
     //console.log(this.state);
     return (
       <div className="bx--grid landing-page">
@@ -104,6 +130,9 @@ class LandingPage extends Component {
           }
             </div>
         </div>
+        <p className="landing-page__p">
+        Configuration: {uuidString}
+        </p>
         <Footer text="Need help?" link="/" linktext="Visit the knowledge center" className="landing-page__r3" />
       </div>
     )
