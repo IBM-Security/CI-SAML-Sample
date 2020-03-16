@@ -23,17 +23,31 @@ class LandingPage extends Component {
   componentDidMount() {
 
     const params = QueryString.parse(this.props.location.search);
+    var https = (window.location.protocol === 'https:');
 
     if (params.uuid == "reset" ) {
       console.log("resetting cookie");
-      cookies.remove('sample-saml-cookie', {path: '/', sameSite: 'none'});
+      if (https) {
+        cookies.remove('sample-saml-cookie', {path: '/', sameSite: 'none', secure: true});
+      } else {
+        cookies.remove('sample-saml-cookie', {path: '/', sameSite: 'none'});
+      }
     } else {
       if (typeof params.uuid !== 'undefined') {
-        cookies.set('sample-saml-cookie', params.uuid, {
-          path: '/',
-          maxAge: '2147483647',
-          sameSite: 'none'
-        });
+        if (https) {
+          cookies.set('sample-saml-cookie', params.uuid, {
+            path: '/',
+            maxAge: '2147483647',
+            sameSite: 'none',
+            secure: true
+          });
+        } else {
+          cookies.set('sample-saml-cookie', params.uuid, {
+            path: '/',
+            maxAge: '2147483647',
+            sameSite: 'none'
+          });
+        }
       }
     }
     var uuid = cookies.get('sample-saml-cookie');

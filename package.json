@@ -45,7 +45,7 @@
     "dev:start": "nodemon ./server-build/index.js",
     "dev": "npm-run-all --parallel build dev:*",
     "prod": "npm-run-all --parallel react dev:*",
-    "start": "nodemon ./server-build/index.js",
+    "start": "node ./server-build/index.js",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

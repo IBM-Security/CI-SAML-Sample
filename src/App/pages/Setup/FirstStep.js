@@ -48,11 +48,20 @@ class FirstStep extends Component {
    var uuid = cookies.get('sample-saml-cookie');
    if (!uuid) {
      uuid = this.create_UUID();
-     cookies.set('sample-saml-cookie', uuid, {
-       path: '/',
-       maxAge: '2147483647',
-       sameSite: 'none'
-     }); 
+     if (window.location.protocol === 'https:') {
+       cookies.set('sample-saml-cookie', uuid, {
+         path: '/',
+         maxAge: '2147483647',
+         sameSite: 'none',
+         secure: true
+       });
+     } else {
+       cookies.set('sample-saml-cookie', uuid, {
+         path: '/',
+         maxAge: '2147483647',
+         sameSite: 'none'
+       });
+     }
    }
 
     var myHeaders = new Headers();
