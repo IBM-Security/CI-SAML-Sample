@@ -69,7 +69,7 @@ function getidp(req) {
   }
 
   if (uuid) {
-    properties = JSON.parse(fs.readFileSync('properties-' + uuid + '.json'));
+    properties = JSON.parse(fs.readFileSync(`properties/properties-${uuid}.json`));
   } else {
     properties = JSON.parse(fs.readFileSync('properties.json'));
   }
@@ -172,8 +172,8 @@ app.use('/api', apis);
 // Render all React pages
 app.get('/*', (req, res) => {
   const context = {};
-  const app = ReactDOMServer.renderToString( <
-    StaticRouter location = {
+  const app = ReactDOMServer.renderToString( 
+    <StaticRouter location = {
       req.url
     }
     context = {
@@ -181,8 +181,7 @@ app.get('/*', (req, res) => {
     } >
     <
     App / >
-    <
-    /StaticRouter>
+    </StaticRouter>
   );
 
   const indexFile = path.resolve('./build/index.html');

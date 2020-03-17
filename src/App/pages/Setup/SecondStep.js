@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import {
   CodeSnippet, Link
 } from 'carbon-components-react';
-import SetupHeader from './SetupHeader'
+import SetupHeader from './SetupHeader';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 const currentHost = process.env.REACT_APP_HOSTNAME;
 const entityId = process.env.REACT_APP_ENTITYID;
+
 const HeaderProps = {
   title: `You have to trust us too.`,
   description: `Copy the URLs below or download the metadata and import it to your identity provider. If you don’t complete this step, you’re going to have a bad time.`
 }
+
 
 class SecondStep extends Component {
 
@@ -74,13 +79,16 @@ class SecondStep extends Component {
   };
 
   render() {
+    var uuid = cookies.get('sample-saml-cookie');
+    var uuidQueryString = (typeof uuid !== 'undefined' ? `?uuid=${uuid}` : '' );
+
     return (
       <div className="bx--row setup-content">
         <SetupHeader
         title={HeaderProps.title}
         description={HeaderProps.description}
         />
-        <div className="bx--col-lg-6 bx--col-md-6">
+        <div className="bx--col-lg-8 bx--col-md-6">
           <div className="setup-content-options">
             <p className="step-label">Provider ID</p>
             <CodeSnippet
@@ -113,7 +121,7 @@ class SecondStep extends Component {
               onClick={this.copyLogin}
               id="copylogin"
             >
-              {this.state.ssotrigger}
+              {this.state.ssotrigger + uuidQueryString}
             </CodeSnippet>
           </div>
           <div className="step-spacing">
