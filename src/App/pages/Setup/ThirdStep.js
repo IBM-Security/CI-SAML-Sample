@@ -5,6 +5,9 @@ import {
 } from 'carbon-components-react';
 import SetupHeader from './SetupHeader'
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 const HeaderProps = {
   title: `Setup complete`,
   description: `Everything you provided looks good. Go ahead and try to log in. If you see errors, you can always come back here to make changes.`
@@ -42,7 +45,9 @@ class ThirdStep extends Component {
       redirect: 'follow'
     };
 
-    fetch(`/api/v1.0/config/properties`, requestOptions)
+    var uuid = cookies.get('sample-saml-cookie');
+
+    fetch(`/api/v1.0/config/properties?uuid=${uuid}`, requestOptions)
       .then(response => response.text())
       .then(result => console.log(result))
       .then((data) => {

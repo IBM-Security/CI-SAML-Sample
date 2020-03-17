@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import {
   TextInput, TextArea, TextInputSkeleton
 } from 'carbon-components-react';
-import SetupHeader from './SetupHeader'
+import SetupHeader from './SetupHeader';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 const HeaderProps = {
   title: `Provide your identity provider information`,
@@ -10,6 +13,8 @@ const HeaderProps = {
   identity provider's login & logout URLs, and the certificate. With this we can
   will know who to send the single-sign on request to.`
 }
+
+
 
 class FirstStep extends Component {
   constructor(props) {
@@ -27,7 +32,38 @@ class FirstStep extends Component {
     this.handleChangeCert = this.handleChangeCert.bind(this);
     this.preloadCheck = this.preloadCheck.bind(this);
   }
+
+  create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+  }
+
   componentDidMount(){
+
+   var uuid = cookies.get('sample-saml-cookie');
+   if (!uuid) {
+     uuid = this.create_UUID();
+     if (window.location.protocol === 'https:') {
+       cookies.set('sample-saml-cookie', uuid, {
+         path: '/',
+         maxAge: '2147483647',
+         sameSite: 'none',
+         secure: true
+       });
+     } else {
+       cookies.set('sample-saml-cookie', uuid, {
+         path: '/',
+         maxAge: '2147483647',
+         sameSite: 'none'
+       });
+     }
+   }
+
     var myHeaders = new Headers();
 
     var requestOptions = {
@@ -36,7 +72,7 @@ class FirstStep extends Component {
       redirect: 'follow'
     };
 
-    fetch(`/api/v1.0/config/properties`, requestOptions)
+    fetch(`/api/v1.0/config/properties?uuid=${uuid}`, requestOptions)
       .then(response => response.text())
       .then(result => {
         var precheck = JSON.parse(result)
