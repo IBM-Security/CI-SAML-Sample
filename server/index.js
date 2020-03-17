@@ -58,11 +58,13 @@ function getidp(req) {
       req.universalCookies.set('sample-saml-cookie', uuid, {
         path: '/',
         sameSite: 'none',
+        maxAge: '2147483647',
         secure: true
       });
     } else {
       req.universalCookies.set('sample-saml-cookie', uuid, {
         path: '/',
+        maxAge: '2147483647',
         sameSite: 'none'
       });
     }
@@ -172,7 +174,7 @@ app.use('/api', apis);
 // Render all React pages
 app.get('/*', (req, res) => {
   const context = {};
-  const app = ReactDOMServer.renderToString( 
+  const app = ReactDOMServer.renderToString(
     <StaticRouter location = {
       req.url
     }
