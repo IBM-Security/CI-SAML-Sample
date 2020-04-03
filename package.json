@@ -1,9 +1,10 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "ibmsamlspapp",
+  "version": "1.0.0",
+  "private": false,
   "dependencies": {
     "@carbon/grid": "^10.8.2",
+    "@carbon/ibm-security": "^1.18.0",
     "@carbon/icons": "^10.8.1",
     "@carbon/icons-react": "^10.8.1",
     "@carbon/themes": "^10.9.2",
@@ -31,7 +32,7 @@
     "react-dom": "^16.12.0",
     "react-highlight.js": "^1.0.7",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "^3.4.0",
     "react-simple-code-editor": "^0.11.0",
     "saml2-js": "^2.0.5",
     "sass-loader": "^8.0.2",
@@ -43,8 +44,8 @@
   "scripts": {
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",
     "dev:start": "nodemon ./server-build/index.js",
-    "dev": "npm-run-all --parallel build dev:*",
-    "prod": "npm-run-all --parallel react dev:*",
+    "prod": "npm-run-all --parallel build dev:*",
+    "dev": "npm-run-all --parallel react dev:*",
     "start": "node ./server-build/index.js",
     "react": "react-scripts start",
     "build": "react-scripts build",

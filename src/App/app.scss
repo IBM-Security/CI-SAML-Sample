@@ -1,21 +1,24 @@
 @import '@carbon/themes/scss/themes';
-// Use the gray 100 theme
 $carbon--theme: $carbon--theme--g90;
 
-$feature-flags: (
-  ui-shell: true,
-  grid-columns-16: true,
-);
 @include carbon--theme();
 @import 'carbon-components/scss/globals/scss/styles.scss';
-@import './components/Header/header.scss';
-@import './pages/LandingPage/landing-page.scss';
-@import './pages/InfoFooter/footer.scss';
-@import './pages/ViewProfile/view-profile.scss';
-@import './pages/Setup/setup.scss';
 .bx__global-content{
   background-color:$ui-background
 }
 .bx--tab-content{
   background-color:$ui-01;
 }
+//pages
+@import './pages/LandingPage/landing-page.scss';
+@import './pages/InfoFooter/footer.scss';
+@import './pages/ViewProfile/view-profile.scss';
+@import './pages/Setup/setup.scss';
+
+//security pages
+@import './components/Header/header.scss';
+//styles
+// @import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
+// @import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
+// @import 'carbon-components/scss/globals/scss/typography.scss';
+// @import 'carbon-components/scss/globals/scss/vars.scss';

@@ -94,7 +94,7 @@ var sp_options = {
   certificate: fs.readFileSync("./SAMLCertificate.pem").toString(),
   allow_unencrypted_assertion: true,
   nameid_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
-  force_authn: true,
+  force_authn: false,
   auth_context: {
     comparison: "exact",
     class_refs: ["urn:oasis:names:tc:SAML:1.0:am:password"]
@@ -205,10 +205,10 @@ if (HTTPS) {
       cert: fs.readFileSync('./server.cert')
     }, app)
     .listen(PORT, function() {
-      console.log(`Example app listening on port ${PORT}! Go to https://localhost:${PORT}/`)
+      console.log(`Example app listening on port ${PORT}! Go to ${HOSTNAME}/`)
     })
 } else {
   app.listen(PORT, () => {
-    console.log(`😎 Server is listening on port ${PORT}! Go to http://localhost:${PORT}/`);
+    console.log(`😎 Server is listening on port ${PORT}! Go to ${HOSTNAME}/`);
   });
 }

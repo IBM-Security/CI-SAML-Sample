@@ -10,7 +10,7 @@ const cookies = new Cookies();
 const HeaderProps = {
   title: `Provide your identity provider information`,
   description: `We don't just trust anyone. To get started, all you need to provide is your
-  identity provider's login & logout URLs, and the certificate. With this we can
+  identity provider's login & logout URLs, and the certificate. With this we
   will know who to send the single-sign on request to.`
 }
 

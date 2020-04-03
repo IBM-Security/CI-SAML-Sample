@@ -6,12 +6,9 @@ import SetupHeader from './SetupHeader';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
-const currentHost = process.env.REACT_APP_HOSTNAME;
-const entityId = process.env.REACT_APP_ENTITYID;
-
 const HeaderProps = {
   title: `You have to trust us too.`,
-  description: `Copy the URLs below or download the metadata and import it to your identity provider. If you don’t complete this step, you’re going to have a bad time.`
+  description: `Copy the URLs below or download the metadata and import it to your identity provider. If you don’t complete this step, you wont be able to log in.`
 }
 
 

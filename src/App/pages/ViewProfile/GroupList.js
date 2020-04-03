@@ -25,8 +25,8 @@ const GroupList = ({ rows, headers }) => {
         getTableProps,
       }) => (
         <TableContainer
-          title="Attribute list"
-          description="Here’s the list of attributes that we extracted from your sign on session. If you expected something different, then check your configuration on your identity provider (we can’t make those changes for you, unfortunately). ">
+          title="Group list"
+          description="Here’s the list of groups that we extracted from your sign on session from the attribute called 'groups' from your SAML assertion. If you expected something different, then check your configuration on your identity provider (we can’t make those changes for you, unfortunately). ">
           <Table {...getTableProps()}>
             <TableHead>
               <TableRow className="tab-dataTable-row">

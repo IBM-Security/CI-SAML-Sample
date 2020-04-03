@@ -136,7 +136,7 @@ class ViewProfile extends Component {
     return (
       <div className="bx--grid landing-page">
         <div className="bx--row landing-page__breadcrumb">
-          <div className="bx--col-lg-16">
+          <div className="bx--col-lg-12">
             <Breadcrumb aria-label="Page navigation">
               <BreadcrumbItem>
                 <a href="/">Back to home</a>
@@ -145,7 +145,7 @@ class ViewProfile extends Component {
           </div>
         </div>
         <div className="bx--row landing-page__banner">
-          <div className="bx--col-lg-12">
+          <div className="bx--col-lg-8 bx--col-md-6">
               { this.state.loading ? (
                 <div
                   style={{
@@ -177,7 +177,7 @@ class ViewProfile extends Component {
               )
             }
           </div>
-          <div className="bx--col-lg-4">
+          <div className="bx--col-lg-4 bx--col-md-2">
             <Button kind="secondary" className="button-logout" onClick={() => window.location.replace('/logout')}>Logout</Button>
           </div>
         </div>

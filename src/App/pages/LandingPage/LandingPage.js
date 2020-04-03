@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {
+  Link,
   Breadcrumb,
   BreadcrumbItem,
-  ClickableTile
+  ClickableTile,
+  CodeSnippet
  } from 'carbon-components-react';
 import Footer from '../InfoFooter/Footer';
 import { Settings24, Login24, UserIdentification24, Logout24 } from '@carbon/icons-react';
@@ -17,7 +19,8 @@ class LandingPage extends Component {
     loading: true,
     session: false,
     setup: false,
-    setupAllowed: true
+    setupAllowed: true,
+    showSession: false
   }
 
   componentDidMount() {
@@ -80,6 +83,28 @@ class LandingPage extends Component {
     .catch(console.log)
 
   }
+  copyuuid = () => {
+  	let copiedText = '';
+  	var codeSnippetElement = document.querySelectorAll('#uuid > div > code > pre');
+  	if (codeSnippetElement) {
+  		copiedText = codeSnippetElement[0].innerHTML;
+  	}
+  	var textArea = document.createElement('textarea');
+  	textArea.value = copiedText;
+  	document.body.appendChild(textArea);
+  	textArea.select();
+  	document.execCommand('Copy');
+  	textArea.remove();
+  };
+
+  toggleSession = () => {
+      if(this.state.showSession == true){
+        this.setState({ showSession: false });
+      }
+      else{
+        this.setState({ showSession: true });
+      }
+  }
 
   render() {
     var uuid = cookies.get('sample-saml-cookie');
@@ -88,13 +113,17 @@ class LandingPage extends Component {
     //console.log(this.state);
     return (
       <div className="bx--grid landing-page">
-        <div className="bx--row landing-page__banner">
-          <div className="bx--col-lg-16">
+        <div className="bx--row landing-page__breadcrumb">
+          <div className="bx--col-lg-12">
             <Breadcrumb aria-label="Page navigation" noTrailingSlash>
               <BreadcrumbItem>
                 <a href="http://developer.ice.ibmcloud.com/">Developer SDK</a>
               </BreadcrumbItem>
             </Breadcrumb>
+          </div>
+        </div>
+        <div className="bx--row landing-page__banner">
+          <div className="bx--col-lg-12">
             <h1 className="landing-page__heading">
               SAML application service provider
             </h1>
@@ -142,11 +171,38 @@ class LandingPage extends Component {
               </ClickableTile>
             ) : ('')
           }
+              <p className="landing-page__p">
+                Once you configure your identity provider, the configuration is tied to your browser session. The session identifier 
+                can be used to identify your specific configuration. Click the link below to view the session configuration information. 
+                <br /><br />
+                  { this.state.showSession ? 
+                  (
+                  <div>
+                    <Link 
+                    className="some-class"
+                    href="#"
+                    onClick={this.toggleSession}>
+                    Hide session identifier</Link>
+                    <CodeSnippet 
+                    type='single'
+                    feedback="Copied to clipboard"
+                    type="single"
+                    onClick={this.copyuuid}
+                    id="uuid"
+                    className="ci--sessionId">
+                    {`${uuidString}`}
+                    </CodeSnippet>
+                  </div>
+                  ) : (
+                    <Link 
+                  className="some-class"
+                  href="#"
+                  onClick={this.toggleSession}>
+                  View session identifier</Link>
+                  ) }
+              </p>
             </div>
         </div>
-        <p className="landing-page__p">
-        Configuration: {uuidString}
-        </p>
         <Footer text="Need help?" link="/" linktext="Visit the knowledge center" className="landing-page__r3" />
       </div>
     )

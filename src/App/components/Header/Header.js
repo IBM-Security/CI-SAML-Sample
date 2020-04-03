@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Header,
   HeaderName,
-  HeaderGlobalBar,
-  HeaderGlobalAction,
   SkipToContent,
 } from 'carbon-components-react/lib/components/UIShell';
 
