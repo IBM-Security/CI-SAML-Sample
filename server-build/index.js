@@ -450,7 +450,7 @@ eval("module.exports = require(\"path\");\n\n//# sourceURL=webpack:///external_%
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = require(\"query-string\");\n\n//# sourceURL=webpack:///external_%22query-string%22?");
+eval("module.exports = import(\"query-string\");\n\n//# sourceURL=webpack:///external_%22query-string%22?");
 
 /***/ }),
 
