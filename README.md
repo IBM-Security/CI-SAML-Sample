@@ -1,21 +1,21 @@
 # Table of Contents
 <!-- TOC -->
 
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-    - [Sample SAML application](#sample-saml-application)
-    - [Getting started](#getting-started)
-        - [Pre-requisites](#pre-requisites)
-- [Application setup](#application-setup)
-    - [Perform setup](#perform-setup)
-    - [Install packages](#install-packages)
-        - [Additional setup parameters (optional)](#additional-setup-parameters-optional)
-    - [Start the application](#start-the-application)
-    - [Configure the SAML settings](#configure-the-saml-settings)
-        - [Create an application in Cloud Identity](#create-an-application-in-cloud-identity)
-        - [Get service provider settings](#get-service-provider-settings)
-        - [Login now](#login-now)
-    - [View profile](#view-profile)
+1. [Table of Contents](#table-of-contents)
+2. [Introduction](#introduction)
+   1. [Sample SAML application](#sample-saml-application)
+   2. [Getting started](#getting-started)
+      1. [Pre-requisites](#pre-requisites)
+3. [Application setup](#application-setup)
+   1. [Perform setup](#perform-setup)
+   2. [Install packages](#install-packages)
+      1. [Additional setup parameters (optional)](#additional-setup-parameters-optional)
+   3. [Start the application](#start-the-application)
+   4. [Configure the SAML settings](#configure-the-saml-settings)
+      1. [Create an application in Verify](#create-an-application-in-verify)
+      2. [Get service provider settings](#get-service-provider-settings)
+      3. [Login now](#login-now)
+   5. [View profile](#view-profile)
 
 <!-- /TOC -->
 
@@ -35,7 +35,7 @@ You will do all the configuration of the application through the UI so there is 
 
 ### Pre-requisites
 
-1. You will need an IBM Security Cloud Identity tenant or another Identity Provider that supports SAML. 
+1. You will need an IBM Security Verify tenant or another Identity Provider that supports SAML. 
 2. To run locally, you will need to install [NodeJS](https://nodejs.org/en/download/).
     - Optionally, install yarn by running `npm i yarn` in your terminal window. 
     - **Note:** You will only need Yarn in case you want to modify the application, otherwise, node is all that is necessary.
@@ -106,9 +106,9 @@ You will need to exchange information between your identity provider and the app
 
 Click the Setup tile to get started.
 
-### Create an application in Cloud Identity
+### Create an application in Verify
 
-In Cloud Identity, create a new custom application. 
+In IBM Security Verify Admin Console, create a new custom application. 
 
 On the General tab:
 
@@ -120,10 +120,10 @@ On the Sign on tab:
 2. On the right side instructions, copy the following parameters from the **Configure Third party SaaS application as the service provider (SP)** section.
     - **Login URL**
        
-        ex. `https://tenant.ice.ibmcloud.com/saml/sps/saml20ip/saml20/login`
+        ex. `https://tenant.verify.ibm.com/saml/sps/saml20ip/saml20/login`
     - **Logout URL**
         
-        ex. `https://tenant.ice.ibmcloud.com/idaas/mtfim/sps/idaas/logout`
+        ex. `https://tenant.verify.ibm.com/idaas/mtfim/sps/idaas/logout`
     - **Signing certificate**
         
         ex. 
@@ -172,14 +172,14 @@ or
 
 1. Download the metadata for import into your identity provider (if it supports this method)
 
-**(Optional)** Advanced settings that may be necessary, but not for IBM Cloud Identity:
+**(Optional)** Advanced settings that may be necessary, but not for IBM Security Verify:
 
 - Allow unencrypted session: `true`
 - Name ID Format: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`
 - Force Authn: `false`
 - Authentication Method: `urn:oasis:names:tc:SAML:1.0:am:password`
 
-**Ex. IBM Cloud Identity Configuration**
+**Ex. IBM Security Verify Configuration**
 ![Example CI Config](setup-ci.png)
 
 ### Login now
