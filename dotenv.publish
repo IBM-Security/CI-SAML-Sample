@@ -1,0 +1,6 @@
+SASS_PATH="node_modules"
+SKIP_PREFLIGHT_CHECK=true
+REACT_APP_HOSTNAME=https://samlapp.12murzlqn27z.us-east.codeengine.appdomain.cloud
+REACT_APP_ENTITYID=samlapp-codeengine
+REACT_APP_SHOWSETUP=true
+PORT=3006
