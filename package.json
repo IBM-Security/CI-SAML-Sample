@@ -39,7 +39,8 @@
     "universal-cookie": "^4.0.3",
     "universal-cookie-express": "^4.0.3",
     "webpack": "^4.41.5",
-    "xml-formatter": "^1.2.0"
+    "xml-formatter": "^1.2.0",
+    "saml2-js": "^4.0.1"
   },
   "scripts": {
     "dev:build-server": "NODE_ENV=development webpack --config webpack.server.js --mode=development -w",

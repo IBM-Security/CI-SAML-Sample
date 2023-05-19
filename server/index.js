@@ -205,10 +205,10 @@ if (HTTPS) {
       cert: fs.readFileSync('./server.cert')
     }, app)
     .listen(PORT, function() {
-      console.log(`Example app listening on port ${PORT}! Go to ${HOSTNAME}/`)
+      console.log(`SAML App listening on port ${PORT}! Go to ${HOSTNAME}/`)
     })
 } else {
   app.listen(PORT, () => {
-    console.log(`😎 Server is listening on port ${PORT}! Go to ${HOSTNAME}/`);
+    console.log(`SAML App is listening on port ${PORT}! Go to ${HOSTNAME}/`);
   });
 }
